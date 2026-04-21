@@ -27,7 +27,7 @@ def login_form():
         #if rol == rol:
         if user[3] == "administrador":
             
-            return redirect("inicio")
+            return redirect("inicioadmin")
         
         elif user[3] == "empleado":
             
@@ -40,8 +40,8 @@ def login_form():
         return redirect(url_for('login'))
     
         
-@apps.route('/inicio')
-def inicio():
+@apps.route('/inicioadmin')
+def inicioadmin():
     if 'usuario' not in session:
         return redirect(url_for('login'))  
     con = conectar()
@@ -77,7 +77,7 @@ def eliminarusu(id):
         rol = usuario[0]
         if rol == "administrador":
             flash("No se puede eliminar el administrador")
-            return redirect(url_for("inicio"))
+            return redirect(url_for("inicioadmin"))
         else:
             cursor.execute("DELETE FROM usuarios WHERE id_usuario = %s", (id,))
             con.commit()
@@ -85,7 +85,7 @@ def eliminarusu(id):
     
     cursor.close()
     con.close()
-    return redirect(url_for("inicio"))
+    return redirect(url_for("inicioadmin"))
 
 @apps.route("/guardar_usuario", methods=["POST"])
 def guardar_usuario():
@@ -100,7 +100,7 @@ def guardar_usuario():
     
     cursor.execute(sql, (usuario, password, rolusu, documento))
     con.commit()
-    return redirect(url_for("inicio"))
+    return redirect(url_for("inicioadmin"))
      
 
 @apps.route("/registrar_empleado", methods=["POST"])
@@ -146,7 +146,7 @@ def registrar_empleado():
         print("Empleado guardado en la base de datos")
     else:
         print("El departamento no existe, por favor registre el departamento antes de registrar el empleado")
-    return redirect(url_for("inicio"))
+    return redirect(url_for("inicioadmin"))
      
 @apps.route('/eliminaremple/<int:id>')
 def eliminaremple(id):
@@ -174,7 +174,7 @@ def eliminaremple(id):
         
         cursor.close()
         con.close()
-    return redirect(url_for("inicio"))
+    return redirect(url_for("inicioadmin"))
 @apps.route('/editarusu/<int:id>')
 def editarusu(id):
     if 'usuario' not in session:
