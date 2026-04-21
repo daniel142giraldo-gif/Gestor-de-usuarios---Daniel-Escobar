@@ -175,6 +175,88 @@ def eliminaremple(id):
         cursor.close()
         con.close()
     return redirect(url_for("inicio"))
+@apps.route('/editarusu/<int:id>')
+def editarusu(id):
+    if 'usuario' not in session:
+        return redirect(url_for('login'))  
+    con = conectar()
+    cursor = con.cursor()
+    sql = "SELECT * FROM usuarios WHERE id_usuario = %s"
+    cursor.execute(sql, (id,))
+    usuario = cursor.fetchone()
+    cursor.close()
+    con.close()
+    return render_template("editarusu.html", usu=usuario)
 
+@apps.route('/actualizarusu', methods=["POST"])
+def actualizarusu():
+    id = request.form["id_usuario"]
+    usuario = request.form["txtusuario"]
+    password = request.form["txtcontrasena"]
+    
+    con = conectar()
+    cursor = con.cursor()
+    
+    sql = "UPDATE usuarios SET usuario = %s, password = %s WHERE id_usuario = %s"
+    cursor.execute(sql, (usuario, password, id))
+    con.commit()
+    cursor.close()
+    con.close()
+    
+    print("Usuario actualizado")
+    return redirect(url_for('login'))
+
+@apps.route('/editaremple/<int:id>')
+def editaremple(id):
+    if 'usuario' not in session:
+        return redirect(url_for('login'))  
+    con = conectar()
+    cursor = con.cursor()
+    sql = "SELECT * FROM empleados WHERE id = %s"
+    cursor.execute(sql, (id,))
+    empleado = cursor.fetchone()
+    cursor.close()
+    con.close()
+    return render_template("editaremple.html", emp=empleado)
+
+@apps.route('/actualizaremple', methods=["POST"])
+def actualizaremple():
+    id = request.form["id"]
+    documento = request.form["documento"]
+    nombre = request.form["nombre"]
+    apellido = request.form["apellido"]
+    cargo = request.form["cargo"]
+    hextra = int(request.form["hextra"])
+    bonificacion = float(request.form["bonificacion"])
+    departamento = request.form["departamento"]
+    
+    def SalarioBase():
+        if cargo == "gerente":
+            return 5000000
+        elif cargo == "administrador":
+            return 3500000
+        elif cargo == "contador":
+            return 2800000
+        else:
+            return 1800000
+    
+    salarioBase = SalarioBase()
+    valorHExtra = hextra * 3000
+    salariobru = salarioBase + valorHExtra + bonificacion
+    salud = salariobru * 0.04
+    pension = salariobru * 0.04
+    salarioneto = salariobru - salud - pension
+    
+    con = conectar()
+    cursor = con.cursor()
+    
+    sql = "UPDATE empleados SET DocumentoEmple = %s, NombreEmple = %s, ApellidoEmple = %s, Cargo = %s, HoraExtra = %s, Bonificacion = %s, SalarioB = %s, Salud = %s, Pension = %s, SalarioNeto = %s, idDep = %s WHERE id = %s"
+    cursor.execute(sql, (documento, nombre, apellido, cargo, hextra, bonificacion, salariobru, salud, pension, salarioneto, departamento, id))
+    con.commit()
+    cursor.close()
+    con.close()
+    
+    print("Empleado actualizado")
+    return redirect(url_for('login'))
 if __name__ == "__main__":
     apps.run(debug=True)

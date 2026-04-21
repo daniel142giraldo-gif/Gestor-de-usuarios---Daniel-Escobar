@@ -45,7 +45,7 @@
                         <td>{{ u[2]}}</td>
                         <td>{{ u[3]}}</td>
                         <td>
-                            <a href="" class="btn btn-outline-light p-2 me-3">Editar</a> 
+                            <a href="{{url_for('editarusu', id=u[0])}}" class="btn btn-outline-light p-2 me-3">Editar</a> 
 
                             <a href="{{url_for('eliminarusu', id=u[0])}}" class="btn btn-outline-light p-2 me-3" 
                             onclick="return confirm('¿Seguro que quiere eliminar el usaurio?')">Eliminar</a> 
@@ -87,7 +87,7 @@
                         <td>{{ u[9]}}</td>
                         <td>{{ u[10]}}</td>
                         <td>
-                            <a href="" class="btn btn-outline-light p-2 me-3">Editar</a> 
+                            <a href="{{url_for('editaremple', id=u[0])}}" class="btn btn-outline-light p-2 me-3">Editar</a> 
 
                             <a href="{{url_for('eliminaremple', id=u[0])}}" class="btn btn-outline-light p-2 me-3" 
                             onclick="return confirm('¿Seguro que quiere eliminar el empleado?')">Eliminar</a> 

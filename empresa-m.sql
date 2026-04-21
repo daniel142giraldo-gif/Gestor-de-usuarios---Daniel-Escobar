@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2026 a las 07:27:18
+-- Tiempo de generación: 13-04-2026 a las 20:33:09
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,10 +70,8 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`id`, `DocumentoEmple`, `NombreEmple`, `ApellidoEmple`, `Cargo`, `SalarioB`, `HoraExtra`, `Bonificacion`, `Salud`, `Pension`, `SalarioNeto`, `idDep`) VALUES
-(2, '123455', 'Alejandro', 'Escobar', 'gerente', 5545000.00, 15, 250000.00, 221800.00, 221800.00, 5101400.00, 2),
-(3, '654321', 'Daniel', 'Escobar', 'Gerente', 5245000.00, 15, 200000.00, 209800.00, 209800.00, 4825400.00, 1),
-(4, '666111', 'Samuel', 'Avendaño', 'administrador', 3760000.00, 20, 200000.00, 150400.00, 150400.00, 3459200.00, 3),
-(5, '789987', 'Jose', 'Villa', 'administrador', 3160000.00, 10, 50000.00, 126400.00, 126400.00, 2907200.00, 4);
+(2, '222222', 'Alejandro', 'Giraldo', 'gerente', 5130000.00, 10, 100000.00, 205200.00, 205200.00, 4719600.00, 0),
+(3, '654321', 'Daniel', 'Escobar', 'Gerente', 5245000.00, 15, 200000.00, 209800.00, 209800.00, 4825400.00, 1);
 
 -- --------------------------------------------------------
 
@@ -94,8 +92,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `usuario`, `password`, `rol`, `docuemple`) VALUES
-(2, 'admin', '123456', 'administrador', NULL),
-(3, 'Daniel', '654321', 'empleado', '654321');
+(2, 'Mono', '123456', 'administrador', NULL),
+(3, 'Daniel', '111111', 'empleado', '654321');
 
 --
 -- Índices para tablas volcadas
@@ -115,7 +113,7 @@ ALTER TABLE `empleados`
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
