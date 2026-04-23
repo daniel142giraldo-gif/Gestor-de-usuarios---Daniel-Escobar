@@ -9,15 +9,11 @@
     </head>
     <body>
         <div>
-            <h4 class="modal-title">Editar Empleado</h4>
+            <h4 class="modal-title">Actualizar Empleado</h4>
         </div>
         <div>
-            <form method="POST" action="{{url_for('actualizaremple')}}">
+            <form method="POST" action="{{url_for('actualizarempleado')}}">
                 <input type="hidden" name="id" value="{{ emp[0] }}">
-                <div class="mb-3 mt-3">
-                    <label>Ingresar documento del empleado</label>
-                    <input type="number" class="form-control" name="documento" placeholder="Ingresar documento" value="{{ emp[1] }}">
-                </div>
                 <div class="mb-3">
                     <label>Ingresar nombre del empleado</label>
                     <input type="text" class="form-control" name="nombre" placeholder="Ingresar nombre" value="{{ emp[2] }}">
@@ -35,20 +31,20 @@
                         <option value="contador">contador</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label>Ingresar horas extra</label>
-                    <input type="number" class="form-control" name="hextra" placeholder="Ingresar horas extra" value="{{ emp[5] }}">
-                </div>
-                <div class="mb-3">
-                    <label>Ingresar bonificacion</label>
-                    <input type="number" class="form-control" name="bonificacion" placeholder="Ingresar bonificacion" value="{{ emp[6] }}">
-                </div>
                 <div class="mb-3 mt-3">
                     <label>Ingresar el nombre del departamento</label>
-                    <input type="text" class="form-control" name="departamento" placeholder="Ingresar nombre del departamento" value="{{ emp[10] }}">
+                    <select class="form-select" name="departamento" required value="{{ emp[12] }}">
+                        <option value="">Seleccione el departamento</option>
+                        <option value="Recursos humanos">Recursos humanos</option>
+                        <option value="Sistemas">Sistemas</option>
+                        <option value="Administracion">Administracion</option>
+                        <option value="Contabilidad">Contabilidad</option>
+                        <option value="Cafeteria">Cafeteria</option>
+                        <option value="Parqueaderos">Parqueaderos</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-dark">Actualizar</a></button>
-                <a href="{{ url_for('inicioadmin') }}" class="btn btn-dark">Cancelar</a>
+                <a href="{{ url_for('inicioemple') }}" class="btn btn-dark">Cancelar</a>
             </form>
         </div>
     </body>

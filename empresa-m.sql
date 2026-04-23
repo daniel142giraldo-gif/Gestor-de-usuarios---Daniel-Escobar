@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-04-2026 a las 20:33:09
+-- Tiempo de generación: 23-04-2026 a las 05:50:17
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -71,7 +71,7 @@ CREATE TABLE `empleados` (
 
 INSERT INTO `empleados` (`id`, `DocumentoEmple`, `NombreEmple`, `ApellidoEmple`, `Cargo`, `SalarioB`, `HoraExtra`, `Bonificacion`, `Salud`, `Pension`, `SalarioNeto`, `idDep`) VALUES
 (2, '222222', 'Alejandro', 'Giraldo', 'gerente', 5130000.00, 10, 100000.00, 205200.00, 205200.00, 4719600.00, 0),
-(3, '654321', 'Daniel', 'Escobar', 'Gerente', 5245000.00, 15, 200000.00, 209800.00, 209800.00, 4825400.00, 1);
+(3, '654321', 'Daniel', 'Escobar', 'gerente', 5245000.00, 15, 200000.00, 209800.00, 209800.00, 4825400.00, 3);
 
 -- --------------------------------------------------------
 
