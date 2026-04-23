@@ -31,12 +31,12 @@ def login_form():
         
         elif user[3] == "empleado":
             
-            return "Bienvenido empleado"
+            return redirect("inicioemple")
         
     else:
         
         
-        flash ("Uusario o contraseña incorrecta" , "danger")
+        flash ("Usuario o contraseña incorrecta" , "danger")
         return redirect(url_for('login'))
     
         
@@ -56,6 +56,23 @@ def inicioadmin():
 
     return render_template('index.html', user=usuarios, emple=empleados)
 
+@apps.route('/inicioemple')
+def inicioemple():
+    if 'usuario' not in session:
+        return redirect(url_for('login'))  
+
+    con = conectar()
+    cursor = con.cursor()
+
+    sql = "SELECT e.*, d.Nombre FROM empleados e JOIN departamentos d ON e.idDep = d.id_are WHERE e.DocumentoEmple = (SELECT docuemple FROM usuarios WHERE usuario = %s)"
+
+    cursor.execute(sql, (session['usuario'],))
+    empleados = cursor.fetchall()
+
+    cursor.close()
+    con.close()
+
+    return render_template('panelempleado.html', emplea=empleados)
 
 @apps.route('/salir')
 def salir():
@@ -257,6 +274,55 @@ def actualizaremple():
     con.close()
     
     print("Empleado actualizado")
-    return redirect(url_for('login'))
+    return redirect(url_for('inicioadmin'))
+
+@apps.route('/editarempleado/<int:id>')
+def editarempleado(id):
+    if 'usuario' not in session:
+        return redirect(url_for('login'))  
+    con = conectar()
+    cursor = con.cursor()
+    sql = "SELECT * FROM empleados WHERE id = %s"
+    cursor.execute(sql, (id,))
+    empleado = cursor.fetchone()
+    
+    sqldepa = "SELECT Nombre from departamentos"
+    cursor.execute(sqldepa)
+    departamentos = cursor.fetchall()
+    
+    cursor.close()
+    con.close()
+    return render_template("actualizaremple.html", emp=empleado, depart=departamentos)
+
+@apps.route('/actualizarempleado', methods=["POST"])
+def actualizarempleado():
+    id = request.form["id"]
+    nombre = request.form["nombre"]
+    apellido = request.form["apellido"]
+    cargo = request.form["cargo"]
+    nombre_departamento = request.form["departamento"]
+
+    con = conectar()
+    cursor = con.cursor()
+
+    sql_depa = "SELECT id_are FROM departamentos WHERE Nombre = %s"
+    cursor.execute(sql_depa, (nombre_departamento,))
+    resultado = cursor.fetchone()
+
+    if resultado:
+        id_departamento = resultado[0]
+
+        sql = "UPDATE empleados SET NombreEmple = %s, ApellidoEmple = %s, Cargo = %s, idDep = %s WHERE id = %s"
+        
+        cursor.execute(sql, (nombre, apellido, cargo, id_departamento, id))
+        con.commit()
+    else:
+        print("El departamento no existe")
+
+    cursor.close()
+    con.close()
+
+    return redirect(url_for('inicioemple'))
+
 if __name__ == "__main__":
     apps.run(debug=True)

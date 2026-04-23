@@ -25,25 +25,25 @@
                         <td>Nombre</td>
                         <td>Apellido</td>
                         <td>Cargo</td>
-                        <td>Departamento</td>
                         <td>Horas extras</td>
                         <td>Bonificacion</td>
                         <td>Salario bruto</td>
+                        <td>Departamento</td>
+                        <td>Oopciones</td>
                     </tr>
                 </thead>
                 <tbody>
-                    {%for u in emple%}
+                    {%for u in emplea%}
                     <tr>
                         <td>{{ u[2]}}</td>
                         <td>{{ u[3]}}</td>
                         <td>{{ u[4]}}</td>
-                        <td>{{ u[3]}}</td>
-                        <td>{{ u[4]}}</td>
-                        <td>{{ u[5]}}</td>
                         <td>{{ u[6]}}</td>
+                        <td>{{ u[7]}}</td>
+                        <td>{{ u[5]}}</td>
+                        <td>{{ u[12] }}</td>
                         <td>
-                            <a href="{{url_for('editarusu', id=u[0])}}" class="btn btn-outline-light p-2 me-3">Editar</a> 
-
+                            <a href="{{url_for('editarempleado', id=u[0])}}" class="btn btn-outline-light p-2 me-3">Editar</a>
                         </td>
                     </tr>
                     {% endfor %}
